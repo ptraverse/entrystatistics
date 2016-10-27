@@ -16,11 +16,11 @@ class EntrystatisticsPlugin extends BasePlugin
 
     public function getDeveloper()
     {
-        return 'Tribal Worldwide';
+        return 'Philippe Traverse';
     }
 
     public function getDeveloperUrl()
     {
-        return 'http://ddbcanada.com';
+        return 'http://ptraverse.github.io';
     }
 }
