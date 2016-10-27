@@ -2,7 +2,7 @@ Entry Statistics
 ================
 Get a count and plot.ly graph by postDate for any entry type in your Craft CMS Dashboard.
 
-![Screenshot]('./capture.png' "Screenshot")
+![Screenshot](./capture.png "Screenshot")
 
 #### Installation
 
