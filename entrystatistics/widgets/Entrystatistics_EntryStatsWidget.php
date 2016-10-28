@@ -141,6 +141,9 @@ class Entrystatistics_EntryStatsWidget extends BaseWidget
             }
         }
 
+        //Make sure we're in the local timezone!
+        date_default_timezone_set(craft()->timezone);
+
         // Today Count
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime("+1 day"));
@@ -159,13 +162,13 @@ class Entrystatistics_EntryStatsWidget extends BaseWidget
         $lastWeekEnd = date('Y-m-d', strtotime("1 sunday ago"));
         $lastWeekCount  = $this->_rangeCount($criteria, $lastWeekStart, $lastWeekEnd);
 
-        // This Month (1st to today) Count
+        // This Month (1st to now including today) Count
         $thisMonthStart = date('Y-m-d', strtotime("first day of this month"));
-        $thisMonthCount = $this->_rangeCount($criteria, $thisMonthStart, $today);
+        $thisMonthCount = $this->_rangeCount($criteria, $thisMonthStart, $tomorrow);
 
-        //All Time Count
+        //All Time Count (including today)
         $firstItemDate = $firstItem->postDate->format('Y-m-d');
-        $allTimeCount = $this->_rangeCount($criteria, $firstItemDate, $today);
+        $allTimeCount = $this->_rangeCount($criteria, $firstItemDate, $tomorrow);
 
         return array(
             'counts' => array(
