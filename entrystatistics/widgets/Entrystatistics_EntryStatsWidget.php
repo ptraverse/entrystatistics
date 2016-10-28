@@ -141,7 +141,8 @@ class Entrystatistics_EntryStatsWidget extends BaseWidget
             }
         }
 
-        //Make sure we're in the local timezone!
+        //Make sure we're in the local timezone! Save the old one first so we can set it back after
+        $previousTimezone = date_default_timezone_get();
         date_default_timezone_set(craft()->timezone);
 
         // Today Count
@@ -170,6 +171,9 @@ class Entrystatistics_EntryStatsWidget extends BaseWidget
         $firstItemDate = $firstItem->postDate->format('Y-m-d');
         $allTimeCount = $this->_rangeCount($criteria, $firstItemDate, $tomorrow);
 
+        //Set the timezone back to what it was before
+        date_default_timezone_set($previousTimezone);
+
         return array(
             'counts' => array(
                 'today' => $todayCount,
@@ -187,6 +191,11 @@ class Entrystatistics_EntryStatsWidget extends BaseWidget
     /**
      * Helper Function for _getStatistics
      *
+     * @param ElementCriteriaModel  $criteria   Object to do Craft queries
+     * @param String                $start      Y-m-d Start of Date Range
+     * @param String                $end        Y-m-d End of Date Range
+     *
+     * @return Integer              $count      Count of items with PostDate within date range that satisfy $criteria
      */
     private function _rangeCount($criteria, $start, $end) {
         $startDate = DateTime::createFromString($start, craft()->timezone)->format(DateTime::MYSQL_DATETIME);
